@@ -1,0 +1,28 @@
+---
+- name: Target installation
+  hosts: target
+
+  tasks:
+
+  - name: Change motd Ansible Managed by your student number of the server
+    lineinfile:
+      path: '/etc/motd'
+      line: 'Ansible Managed by 1813077'
+      state: present
+
+  - name: Create a user with your github username
+    user:
+      name: cdsdelacruz-tip
+      state: present
+      password: AnsibleManaged
+
+  - name: passwordless sudo user AnsibleManaged
+    lineinfile:
+      path: '/etc/sudoers'
+      line: 'cdsdelacruz-tip ALL=(ALL) NOPASSWD: ALL'
+      state: present
+
+  - name: create group name sysad2
+    group:
+      name: sysad2
+      state: present
